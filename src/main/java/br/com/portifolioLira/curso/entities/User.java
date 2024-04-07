@@ -3,10 +3,16 @@ package br.com.portifolioLira.curso.entities;
 import java.io.Serial;
 import java.io.Serializable;
 
+import jakarta.persistence.*;
+
+@Entity // Usado para informar que essa classe é uma entidade para JPA.
+@Table(name = "tb_user")
 public class User implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Id //indica que a variável será o id no banco de dados
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;
