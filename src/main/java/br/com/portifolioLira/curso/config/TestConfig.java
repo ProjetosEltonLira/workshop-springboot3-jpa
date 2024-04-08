@@ -1,6 +1,6 @@
 package br.com.portifolioLira.curso.config;
 
-import br.com.portifolioLira.curso.Repositories.UserRepository;
+import br.com.portifolioLira.curso.repositories.UserRepository;
 import br.com.portifolioLira.curso.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
