@@ -2,6 +2,8 @@ package br.com.portifolioLira.curso.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -19,6 +21,9 @@ public class User implements Serializable {
     private String phone;
     private String password;
 
+    @OneToMany (mappedBy = "user") //Indica o relacionamento no banco de dados, muitos para um.
+    private List<Order> orderList = new ArrayList<>();
+
     public User(){}
     public User(Long id, String name, String email, String phone, String password) {
         this.id = id;
@@ -27,6 +32,8 @@ public class User implements Serializable {
         this.phone = phone;
         this.password = password;
     }
+
+
 
     public Long getId() {
         return id;
@@ -66,6 +73,10 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Order> getOrderList() {
+        return orderList;
     }
 
     @Override
