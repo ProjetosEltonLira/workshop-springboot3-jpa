@@ -5,11 +5,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity // Usado para informar que essa classe é uma entidade para JPA.
 @Table(name = "tb_user")
 public class User implements Serializable {
+
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -21,6 +23,7 @@ public class User implements Serializable {
     private String phone;
     private String password;
 
+    @JsonIgnore //é uma notation do Jackson, serve para impedir o looping de busca de informação entre o User e o Order
     @OneToMany (mappedBy = "user") //Indica o relacionamento no banco de dados, muitos para um.
     private List<Order> orderList = new ArrayList<>();
 

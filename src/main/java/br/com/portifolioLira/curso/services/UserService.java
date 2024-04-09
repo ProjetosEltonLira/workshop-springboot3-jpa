@@ -1,5 +1,6 @@
 package br.com.portifolioLira.curso.services;
 
+
 import br.com.portifolioLira.curso.entities.User;
 import br.com.portifolioLira.curso.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
