@@ -1,5 +1,6 @@
 package br.com.portifolioLira.curso.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -26,7 +27,13 @@ public class Product implements Serializable {
 
 
     //instanciamos para garantir que a lista não comece vazia, nesse caso não precisa estar dentro do construtor
-    @Transient
+    //@Transient
+
+    @JsonIgnore //Para não repetir os códigos no insomnia.
+    @ManyToMany //relacionamento N para N se cria um tabela extra, com a chave primária das duas tabelas
+    @JoinTable (name = "tb_produto_category", //nome da tabela
+            joinColumns = @JoinColumn(name = "product_id"), //nome da chave primária da tabela de produto
+            inverseJoinColumns  = @JoinColumn(name = "category_id"))//nome da chave primária da tabela de produto
     private Set<Category> categories = new HashSet<>();
 
     public Product(){}
