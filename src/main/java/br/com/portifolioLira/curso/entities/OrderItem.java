@@ -1,6 +1,7 @@
 package br.com.portifolioLira.curso.entities;
 
 import br.com.portifolioLira.curso.entities.pk.OrderItemPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -16,7 +17,7 @@ public class OrderItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId //ID embedados (Ambos chaves primárias)
-    private OrderItemPK orderItemPK;
+    private OrderItemPK orderItemPK = new OrderItemPK();
     private Integer quantity;
     private Double price;
 
@@ -28,6 +29,7 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder(){
         return orderItemPK.getOrder();
     }

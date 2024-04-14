@@ -8,7 +8,9 @@ import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity // Usado para informar que essa classe é uma entidade para JPA.
@@ -30,6 +32,11 @@ public class Order implements Serializable {
     @ManyToOne //Indica o relacionamento no banco de dados, muitos para um.
     @JoinColumn (name = "cliente_id")
     private User user;
+
+    @OneToMany (mappedBy = "orderItemPK.order")
+    private Set<OrderItem> itemSet = new HashSet<>();
+
+
 
     public Order(){}
     public Order(Long id, Instant moment,  OrderStatus orderStatus, User user) {
@@ -74,7 +81,9 @@ public class Order implements Serializable {
         this.user = user;
     }
 
-
+    public Set<OrderItem> getItemSet() {
+        return itemSet;
+    }
 
     @Override
     public boolean equals(Object o) {
