@@ -17,12 +17,11 @@ import java.util.List;
 public class CategoryResource {
 
     @Autowired
-    private CategoryService CategoryService;
+    private CategoryService categoryService;
 
     @GetMapping
     public ResponseEntity<List<Category>> findAll() {
-
-        List<Category> list = CategoryService.findAll();
+        List<Category> list = categoryService.findAll();
         return ResponseEntity.ok().body(list);
         //Versão mokada do retorno
         // Category u = new Category(1L, "Maria", "maria@gmail.com", "9999999", "12345");
@@ -31,7 +30,7 @@ public class CategoryResource {
 
     @GetMapping (value = "/{id}") // Isso indica que permite receber um valor na URL
     public ResponseEntity<Category> findById(@PathVariable Long id) { // para o Spring aceitar esse valor vindo da URL precisa colocar a notação @PathVariable
-        Category Category = CategoryService.findById(id);
-        return ResponseEntity.ok().body(Category);
+        Category category = categoryService.findById(id);
+        return ResponseEntity.ok().body(category);
     }
 }

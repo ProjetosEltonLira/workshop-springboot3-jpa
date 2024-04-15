@@ -11,11 +11,9 @@ import java.util.Set;
 @Entity // Usado para informar que essa classe é uma entidade para JPA.
 @Table(name = "tb_product")
 public class Product implements Serializable {
-
-    @Serial
     private static final long serialVersionUID = 1L;
 
-    @Id //indica que a variável será o id no banco de dados
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
@@ -24,25 +22,29 @@ public class Product implements Serializable {
     private String imgUrl;
 
 
-    //instanciamos para garantir que a lista não comece vazia, nesse caso não precisa estar dentro do construtor
-    //@Transient
-
-    @JsonIgnore //Para não repetir os códigos no insomnia.
-    @ManyToMany //relacionamento N para N se cria um tabela extra, com a chave primária das duas tabelas
-    @JoinTable (name = "tb_produto_category", //nome da tabela
-            joinColumns = @JoinColumn(name = "product_id"), //nome da chave primária da tabela de produto
-            inverseJoinColumns  = @JoinColumn(name = "category_id"))//nome da chave primária da tabela de produto
+    //instanciamos o set com HashSet<> para garantir que a lista não comece vazia, nesse caso não precisa estar dentro do construtor
+    //relacionamento N para N se cria um tabela extra, com a chave primária das duas tabelas
+    //nome da tabela
+    //nome da chave primária da tabela de produto
+    //nome da chave primária da tabela de produto
+    @ManyToMany
+    @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
-    public Product(){}
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> items = new HashSet<>();
+
+    public Product() {
+    }
+
     public Product(Long id, String name, String description, Double price, String imgUrl) {
+        super();
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.imgUrl = imgUrl;
     }
-
 
     public Long getId() {
         return id;
@@ -86,6 +88,15 @@ public class Product implements Serializable {
 
     public Set<Category> getCategories() {
         return categories;
+    }
+
+    @JsonIgnore
+    public Set<Order> getOrders() {
+        Set<Order> set = new HashSet<>();
+        for (OrderItem x : items) {
+            set.add(x.getOrder());
+        }
+        return set;
     }
 
     @Override

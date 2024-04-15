@@ -24,7 +24,7 @@ public class User implements Serializable {
     private String password;
 
     @JsonIgnore //é uma notation do Jackson, serve para impedir o looping de busca de informação entre o User e o Order
-    @OneToMany (mappedBy = "user") //Indica o relacionamento no banco de dados, muitos para um.
+    @OneToMany (mappedBy = "client") //Indica o relacionamento no banco de dados, muitos para um.
     private List<Order> orderList = new ArrayList<>();
 
     public User(){}

@@ -17,34 +17,32 @@ public class OrderItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId //ID embedados (Ambos chaves primárias)
-    private OrderItemPK orderItemPK = new OrderItemPK();
+    private OrderItemPK id = new OrderItemPK();
     private Integer quantity;
     private Double price;
 
     public OrderItem(){}
     public OrderItem(Order order, Product product, Integer quantity, Double price) {
-        orderItemPK.setOrder(order);
-        orderItemPK.setProduct(product);
+        id.setOrder(order);
+        id.setProduct(product);
         this.quantity = quantity;
         this.price = price;
     }
-
     @JsonIgnore
     public Order getOrder(){
-        return orderItemPK.getOrder();
+        return id.getOrder();
     }
-    public void SetOrder(Order order){
-        orderItemPK.setOrder(order);
+    public void setOrder(Order order){
+        id.setOrder(order);
     }
+
 
     public Product getProduct(){
-        return orderItemPK.getProduct();
+        return id.getProduct();
     }
-    public void SetProduct(Product product){
-        orderItemPK.setProduct(product);
+    public void setProduct(Product product){
+        id.setProduct(product);
     }
-
-
     public Integer getQuantity() {
         return quantity;
     }
@@ -57,16 +55,14 @@ public class OrderItem implements Serializable {
     public void setPrice(Double price) {
         this.price = price;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof OrderItem orderItem)) return false;
-        return Objects.equals(orderItemPK, orderItem.orderItemPK);
+        return Objects.equals(id, orderItem.id);
     }
-
     @Override
     public int hashCode() {
-        return Objects.hash(orderItemPK);
+        return Objects.hash(id);
     }
 }
