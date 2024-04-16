@@ -33,6 +33,10 @@ import java.util.Set;
         @OneToMany(mappedBy = "id.order")
         private Set<OrderItem> items = new HashSet<>();
 
+        //mapeamento um para um, estamos mapeando as 2 entidade para ter o mesmo ID. (cascade = CascadeType.ALL) serve para isso
+        @OneToOne (mappedBy = "order", cascade = CascadeType.ALL)
+        private Payment payment;
+
         public Order() {
         }
 
@@ -82,7 +86,15 @@ import java.util.Set;
             return items;
         }
 
-        @Override
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
+    @Override
         public int hashCode() {
             final int prime = 31;
             int result = 1;
