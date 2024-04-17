@@ -36,7 +36,7 @@ public class UserResource {
 
     //usado para fazer o Insert, tem que usar o POST no INSOMNIA
     @PostMapping
-    public ResponseEntity<User> insert(@RequestBody User user){
+    public ResponseEntity<User> insert(@RequestBody User user){ //RequestBody exige o envio do body no insomnia
         service.insert(user);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -52,4 +52,9 @@ public class UserResource {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping (value = "/{id}")
+    public ResponseEntity<User> update(@PathVariable Long id,@RequestBody User user){
+        user = service.update(id,user);
+        return ResponseEntity.ok().body(user);
+    }
 }
