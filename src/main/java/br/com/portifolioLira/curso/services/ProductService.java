@@ -13,14 +13,14 @@ import java.util.Optional;
 public class ProductService {
 
     @Autowired
-    private ProductRepository ProductRepository;
+    private ProductRepository repository;
 
     public List<Product> findAll(){
-        return ProductRepository.findAll();
+        return repository.findAll();
     }
 
     public Product findById(Long id){
-        Optional<Product> optProduct = ProductRepository.findById(id); //O findById retorna um Optional
+        Optional<Product> optProduct = repository.findById(id); //O findById retorna um Optional
         return optProduct.get();
     }
 }

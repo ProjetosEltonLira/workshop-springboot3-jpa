@@ -13,15 +13,19 @@ import java.util.Optional;
 public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository repository;
 
     public List<User> findAll(){
-        return userRepository.findAll();
+        return repository.findAll();
     }
 
     public User findById(Long id){
-        Optional<User> optUser = userRepository.findById(id); //O findById retorna um Optional
+        Optional<User> optUser = repository.findById(id); //O findById retorna um Optional
         return optUser.get();
+    }
+
+    public User insert(User user){
+        return repository.save(user);
     }
 
 
