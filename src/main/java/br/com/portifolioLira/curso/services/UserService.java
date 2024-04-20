@@ -5,6 +5,7 @@ import br.com.portifolioLira.curso.entities.User;
 import br.com.portifolioLira.curso.repositories.UserRepository;
 import br.com.portifolioLira.curso.services.exceptions.DataBaseException;
 import br.com.portifolioLira.curso.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -48,9 +49,14 @@ public class UserService {
     }
 
     public User update(Long id, User user){
-        User entity = repository.getReferenceById(id);
-        updateData(entity, user);
-        return repository.save(entity);
+       try {
+           User entity = repository.getReferenceById(id);
+           updateData(entity, user);
+           return repository.save(entity);
+       }
+       catch (EntityNotFoundException e){ //Tratar os casos que o ID não exista
+           throw new ResourceNotFoundException(id);
+       }
     }
 
     public void updateData(User entity, User user) {
