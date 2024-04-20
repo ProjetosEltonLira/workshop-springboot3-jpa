@@ -1,5 +1,6 @@
 package br.com.portifolioLira.curso.resources.exceptions;
 
+import br.com.portifolioLira.curso.services.exceptions.DataBaseException;
 import br.com.portifolioLira.curso.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -22,4 +23,13 @@ public class ResourceExceptionHandler  {
         return ResponseEntity.status(httpStatus).body(bodyErro);
     }
 
+
+    //Intercepta qualquer exceção do tipo DataBaseException
+    @ExceptionHandler(DataBaseException.class)
+    public ResponseEntity<StandardError> dataBaseException(DataBaseException exception, HttpServletRequest request){
+        String msgErro = "Data base error";
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+        StandardError bodyErro = new StandardError(Instant.now(),httpStatus.value(),msgErro,exception.getMessage(),request.getRequestURI());
+        return ResponseEntity.status(httpStatus).body(bodyErro);
+    }
 }

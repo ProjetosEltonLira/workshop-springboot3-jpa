@@ -1,7 +1,6 @@
 package br.com.portifolioLira.curso.resources.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.io.Serializable;
 import java.time.Instant;
 
@@ -16,7 +15,6 @@ public class StandardError implements Serializable {
     private String path;
 
     public StandardError(){};
-
     public StandardError(Instant timestamp, Integer status, String error, String message, String path) {
         this.timestamp = timestamp;
         this.status = status;
