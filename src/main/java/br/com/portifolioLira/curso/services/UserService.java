@@ -45,9 +45,7 @@ public class UserService {
         catch (DataIntegrityViolationException e){ //Exceção da minha camada de serviços.
             throw new DataBaseException(e.getMessage());
         }
-
     }
-
     public User update(Long id, User user){
        try {
            User entity = repository.getReferenceById(id);

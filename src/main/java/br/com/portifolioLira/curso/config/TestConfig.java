@@ -14,7 +14,6 @@ import java.util.Arrays;
 //Essa classe server para implementar o database seeding (Inserir dados no banco de dados).
 @Configuration //representa uma configuração
 @Profile("test") //Deve ser igual ao nome que está no arquivo application.properties spring.profiles.active=test
-
 public class TestConfig implements CommandLineRunner {
 
     @Autowired //O spring resolve a dependencia entre o TesteConfig e o UserRepository

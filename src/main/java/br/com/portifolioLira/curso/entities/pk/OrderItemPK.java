@@ -14,7 +14,6 @@ public class OrderItemPK implements Serializable {
     private static final long serialVersionUID = 1L;
 
     //Essa classe não tem construtor.
-
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
@@ -29,6 +28,7 @@ public class OrderItemPK implements Serializable {
     public void setOrder(Order order) {
         this.order = order;
     }
+
     public Product getProduct() {
         return product;
     }
